@@ -2,13 +2,13 @@
 Hash-Bench provides a JMH (Java microbenchmark harness) and
 [published results](results/1/README.md) for the following JVM hashing implementations:
 
-* [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
-* [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
-* [Guava](https://github.com/google/guava/wiki/HashingExplained)
-* [xxHash for Java](https://github.com/jpountz/lz4-java)
-* [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
-* [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
-* [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
+* [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html) (``adler32-jre``)
+* [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html) (``crc32-jre``)
+* [Guava](https://github.com/google/guava/wiki/HashingExplained) (``*-guava``)
+* [xxHash for Java](https://github.com/jpountz/lz4-java) (``*-jpountz``)
+* [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html) (``sip-hash-fwd-eng``)
+* [siphash-java-inline](https://github.com/nahi/siphash-java-inline) (``sip-hash-inline``)
+* [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing) (``*-zah``)
 
 ![Results](results/1/2048.png)
 
@@ -76,7 +76,7 @@ You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
   * ``-i 1`` to run one iteration only (not recommended)
   * ``-f 1`` to run one fork only (not recommended)
   * ``-p length=8,1024`` to test input lengths of 8 and 1024 only
-  * ``-p algo=xxh64_zah,xxh64_unsafe_jpountz`` to test two XXH64 implementations
+  * ``-p algo=xxh64-zah,xxh64-unsafe-jpountz`` to test two XXH64 implementations
   * ``-rf csv`` to emit CSV output (for use in a spreadsheet etc)
 
 Use ``java -cp target/benchmarks.jar au.com.acegi.hashbench.HashBench`` to list

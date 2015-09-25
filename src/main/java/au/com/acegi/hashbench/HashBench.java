@@ -53,6 +53,11 @@ public class HashBench {
     SipFwdHasher.register(HashBench.HASHERS);
     SipInlineHasher.register(HashBench.HASHERS);
     ZeroAllocHasher.register(HashBench.HASHERS);
+    for (String key : HashBench.HASHERS.keySet()) {
+      if (key.contains("_")) {
+        throw new IllegalStateException(key);
+      }
+    }
   }
 
   public static void main(final String[] args) {

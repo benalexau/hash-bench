@@ -6,11 +6,11 @@ import java.util.Map;
 import net.openhft.hashing.LongHashFunction;
 
 public class ZeroAllocHasher implements Hasher {
-  public static final String ZAH_CITY_1_1 = "city64";
-  public static final String ZAH_FARM_NA = "farm_na";
-  public static final String ZAH_FARM_UO = "farm_uo";
-  public static final String ZAH_MURMUR_3 = "murmur3_zah";
-  public static final String ZAH_XXH64 = "xxh64_zah";
+  public static final String ZAH_CITY_1_1 = "city64-zah";
+  public static final String ZAH_FARM_NA = "farm-na-zah";
+  public static final String ZAH_FARM_UO = "farm-uo-zah";
+  public static final String ZAH_MURMUR_3 = "murmur3-zah";
+  public static final String ZAH_XXH64 = "xxh64-zah";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(ZeroAllocHasher.ZAH_CITY_1_1,

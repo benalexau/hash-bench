@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.zip.CRC32;
 
 public class CRC32Hasher implements Hasher {
-  public static final String JRE_CRC_32 = "crc32";
+  public static final String JRE_CRC_32 = "crc32-jre";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(CRC32Hasher.JRE_CRC_32, new CRC32Hasher());

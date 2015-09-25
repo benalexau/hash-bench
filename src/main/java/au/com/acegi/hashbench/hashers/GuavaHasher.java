@@ -7,17 +7,16 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
 public class GuavaHasher implements Hasher {
-  public static final String G_GOOD_FAST_HASH_32 = "good_fast_hash_32";
-
-  public static final String G_GOOD_FAST_HASH_64 = "good_fast_hash_64";
-  public static final String G_MD5 = "md5";
-  public static final String G_MURMUR_3_128 = "murmur3_128_guava";
-  public static final String G_MURMUR_3_32 = "murmur3_32_guava";
-  public static final String G_SHA1 = "sha1";
-  public static final String G_SHA256 = "sha256";
-  public static final String G_SHA384 = "sha384";
-  public static final String G_SHA512 = "sha512";
-  public static final String G_SIP_HASH = "sip_hash_guava";
+  public static final String G_GOOD_FAST_HASH_32 = "good-fast-hash-32-guava";
+  public static final String G_GOOD_FAST_HASH_64 = "good-fast-hash-64-guava";
+  public static final String G_MD5 = "md5-guava";
+  public static final String G_MURMUR_3_128 = "murmur3-128-guava";
+  public static final String G_MURMUR_3_32 = "murmur3-32-guava";
+  public static final String G_SHA1 = "sha1-guava";
+  public static final String G_SHA256 = "sha256-guava";
+  public static final String G_SHA384 = "sha384-guava";
+  public static final String G_SHA512 = "sha512-guava";
+  public static final String G_SIP_HASH = "sip-hash-guava";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(GuavaHasher.G_GOOD_FAST_HASH_32,
