@@ -65,10 +65,9 @@ for length in $LENGTHS; do
     output=$DIRECTORY/${length}.dat
     echo "# Length: $length" > $output
     echo "# Unit: ns/op" >> $output
-    echo "# Algo Orig_Algo_Name $BUFFERS" >> $output
+    echo "# Algo $BUFFERS" >> $output
     for algo in $ALGOS; do
-        CLEANED=$(echo "${algo}" | sed 's/_/-/g')
-        echo -n "${CLEANED} ${algo}" >> $output
+        echo -n "${algo}" >> $output
         for buffer in $BUFFERS; do
             input=$DIRECTORY/${buffer}-${algo}.dat
             SCORE=$(grep " ${length}$" ${input} | cut -d ' ' -f 1)
@@ -76,7 +75,7 @@ for length in $LENGTHS; do
         done
         echo "" >> $output
     done
-    sort -n -k 3 $output -o $output
+    sort -n -k 2 $output -o $output
 done
 
 # Plot length-specific performance (all algos)
@@ -84,7 +83,7 @@ for length in $LENGTHS; do
     input=$DIRECTORY/${length}.dat
     png=$DIRECTORY/$length.png
     opts=""
-    counter=2
+    counter=1
     for buffer in $BUFFERS; do
         ((counter++))
         opts+="-name ${buffer} -using (5*column(0)):${counter}:xtic(1) $input "
@@ -102,8 +101,7 @@ for algo in $ALGOS; do
         input=$DIRECTORY/${buffer}-${algo}.dat
         opts+="-name ${buffer} -using 2:1 $input "
     done
-    CLEANED=$(echo "${algo}" | sed 's/_/-/g')
-    gplot.pl -outfile $png -type png -title "${CLEANED} by Slice Length" -xlabel "Bytes" -ylabel "ns/hash" -set "xtics nomirror rotate by -270; set key top left" -style linespoints $opts
+    gplot.pl -outfile $png -type png -title "${algo} by Slice Length" -xlabel "Bytes" -ylabel "ns/hash" -set "xtics nomirror rotate by -270; set key top left" -style linespoints $opts
 done
 
 # Summary page
@@ -141,7 +139,7 @@ for length in $LENGTHS; do
     done
     echo "" >> $index
     # table data rows
-    SORTED_ALGOS=$(grep -v '#' $DIRECTORY/${length}.dat | cut -f 2 -d ' ')
+    SORTED_ALGOS=$(grep -v '#' $DIRECTORY/${length}.dat | cut -f 1 -d ' ')
     for algo in $SORTED_ALGOS; do
         echo -n "| [${algo}](#${algo}-latency)" >> $index
         for buffer in $BUFFERS; do
