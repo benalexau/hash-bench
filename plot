@@ -13,6 +13,8 @@ EOF
 exit 1;
 fi
 
+set -e
+
 hash gplot.pl 2>/dev/null || { printf "gplot not found\n"; exit 1; }
 hash dos2unix 2>/dev/null || { printf "dos2unix not found\n"; exit 1; }
 hash grep 2>/dev/null || { printf "grep not found\n"; exit 1; }
