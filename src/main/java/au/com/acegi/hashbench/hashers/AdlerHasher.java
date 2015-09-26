@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.zip.Adler32;
 
 public class AdlerHasher implements Hasher {
-  public static final String JRE_ADLER_32 = "adler320-jre";
+  public static final String JRE_ADLER_32 = "adler32-jre";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(AdlerHasher.JRE_ADLER_32, new AdlerHasher());
