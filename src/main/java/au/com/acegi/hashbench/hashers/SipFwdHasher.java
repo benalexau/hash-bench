@@ -12,7 +12,7 @@ public class SipFwdHasher implements Hasher {
           (byte) 0x08, (byte) 0x09, (byte) 0x0a, (byte) 0x0b, (byte) 0x0c,
           (byte) 0x0d, (byte) 0x0e, (byte) 0x0f};
 
-  public static final String SIP_FWD = "sip-hash-fwd-eng";
+  public static final String SIP_FWD = "sip-fwdeng";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(SipFwdHasher.SIP_FWD, new SipFwdHasher());

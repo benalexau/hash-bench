@@ -53,7 +53,7 @@ public class HashBench {
     SipFwdHasher.register(HashBench.HASHERS);
     SipInlineHasher.register(HashBench.HASHERS);
     ZeroAllocHasher.register(HashBench.HASHERS);
-    for (String key : HashBench.HASHERS.keySet()) {
+    for (final String key : HashBench.HASHERS.keySet()) {
       if (key.contains("_")) {
         throw new IllegalStateException(key);
       }
@@ -70,6 +70,9 @@ public class HashBench {
   @Param({
           AdlerHasher.JRE_ADLER_32,
           CRC32Hasher.JRE_CRC_32,
+          GuavaHasher.G_ADLER32,
+          GuavaHasher.G_CRC32_DELEGATING,
+          GuavaHasher.G_CRC32_RFC,
           GuavaHasher.G_GOOD_FAST_HASH_32,
           GuavaHasher.G_GOOD_FAST_HASH_64,
           GuavaHasher.G_MD5,

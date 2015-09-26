@@ -7,18 +7,27 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
 public class GuavaHasher implements Hasher {
-  public static final String G_GOOD_FAST_HASH_32 = "good-fast-hash-32-guava";
-  public static final String G_GOOD_FAST_HASH_64 = "good-fast-hash-64-guava";
+  public static final String G_ADLER32 = "adler32-guava";
+  public static final String G_CRC32_DELEGATING = "crc32-guava-delegating";
+  public static final String G_CRC32_RFC = "crc32-guava-rfc3720";
+  public static final String G_GOOD_FAST_HASH_32 = "gfh32-guava";
+  public static final String G_GOOD_FAST_HASH_64 = "gfh64-guava";
   public static final String G_MD5 = "md5-guava";
-  public static final String G_MURMUR_3_128 = "murmur3-128-guava";
-  public static final String G_MURMUR_3_32 = "murmur3-32-guava";
+  public static final String G_MURMUR_3_128 = "murmur3h128-guava";
+  public static final String G_MURMUR_3_32 = "murmur3h32-guava";
   public static final String G_SHA1 = "sha1-guava";
   public static final String G_SHA256 = "sha256-guava";
   public static final String G_SHA384 = "sha384-guava";
   public static final String G_SHA512 = "sha512-guava";
-  public static final String G_SIP_HASH = "sip-hash-guava";
+  public static final String G_SIP_HASH = "sip-guava";
 
   public static final void register(final Map<String, Hasher> hashers) {
+    hashers.put(GuavaHasher.G_CRC32_DELEGATING,
+            new GuavaHasher(Hashing.crc32()));
+    hashers.put(GuavaHasher.G_CRC32_RFC,
+            new GuavaHasher(Hashing.crc32c()));
+    hashers.put(GuavaHasher.G_ADLER32,
+            new GuavaHasher(Hashing.adler32()));
     hashers.put(GuavaHasher.G_GOOD_FAST_HASH_32,
             new GuavaHasher(Hashing.goodFastHash(32)));
     hashers.put(GuavaHasher.G_GOOD_FAST_HASH_64,

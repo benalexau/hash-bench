@@ -7,9 +7,9 @@ import net.openhft.hashing.LongHashFunction;
 
 public class ZeroAllocHasher implements Hasher {
   public static final String ZAH_CITY_1_1 = "city64-zah";
-  public static final String ZAH_FARM_NA = "farm-na-zah";
-  public static final String ZAH_FARM_UO = "farm-uo-zah";
-  public static final String ZAH_MURMUR_3 = "murmur3-zah";
+  public static final String ZAH_FARM_NA = "farmna-zah";
+  public static final String ZAH_FARM_UO = "farmuo-zah";
+  public static final String ZAH_MURMUR_3 = "murmur3h128-zah";
   public static final String ZAH_XXH64 = "xxh64-zah";
 
   public static final void register(final Map<String, Hasher> hashers) {
