@@ -35,11 +35,11 @@ if [ ! -d "$DIRECTORY" ]; then
     exit 1
 fi
 
+dos2unix -q $FILE
+
 BUFFERS=$(cut -d , -f 1 $FILE | sort | uniq | grep -v Benchmark | sed 's/au.com.acegi.hashbench.HashBench.with//g'  | sed 's/\"//g' | tr '\n' ' ')
 ALGOS=$(cut -d , -f 8 $FILE | sort | uniq | grep -v Param | tr '\n' ' ')
 LENGTHS=$(cut -d , -f 9 $FILE | sort -n | uniq | grep -v Param | tr '\n' ' ')
-
-dos2unix -q $FILE
 
 rm -f $DIRECTORY/*
 cp $FILE $DIRECTORY
