@@ -27,176 +27,149 @@ hash sort 2>/dev/null || { printf "sort not found\n"; exit 1; }
 FILE=$1
 DIRECTORY=$2
 
-if [ ! -f "$FILE" ]; then
+if [ ! -f "${FILE}" ]; then
     echo "Input file not found (use -h for help)"
     exit 1
 fi
 
-if [ ! -d "$DIRECTORY" ]; then
+if [ ! -d "${DIRECTORY}" ]; then
     echo "Output directory must exist (use -h for help)"
     exit 1
 fi
 
-dos2unix -q $FILE
+dos2unix -q ${FILE}
 
-BUFFERS=$(cut -d , -f 1 $FILE | sort | uniq | grep -v Benchmark | sed 's/au.com.acegi.hashbench.HashBench.with//g'  | sed 's/\"//g' | tr '\n' ' ')
-ALGOS=$(cut -d , -f 8 $FILE | sort | uniq | grep -v Param | tr '\n' ' ')
-LENGTHS=$(cut -d , -f 9 $FILE | sort -n | uniq | grep -v Param | tr '\n' ' ')
+BUFFERS=$(cut -d , -f 1 ${FILE} | sort | uniq | grep -v Benchmark | sed 's/au.com.acegi.hashbench.HashBench.with//g'  | sed 's/\"//g' | tr '\n' ' ')
+ALGOS=$(cut -d , -f 8 ${FILE} | sort | uniq | grep -v Param | tr '\n' ' ')
+HASHES=$(cut -d , -f 8 ${FILE} | grep -v Param | cut -d '-' -f 1 | sort | uniq | tr '\n' ' ')
+IMPLS=$(cut -d , -f 8 ${FILE} | grep -v Param | sed 's/.*-\(.*\)/\1/g' | sort | uniq | tr '\n' ' ')
+LENGTHS=$(cut -d , -f 9 ${FILE} | sort -n | uniq | grep -v Param | tr '\n' ' ')
 
-rm -f $DIRECTORY/*
-cp $FILE $DIRECTORY
+rm -f ${DIRECTORY}/*
+cp ${FILE} ${DIRECTORY}
 
 # Extract buffer-specific, algorithm-specific performance
-for buffer in $BUFFERS; do
-    for algo in $ALGOS; do
-        expr=$buffer
-        expr+='.*,'
-        expr+=$algo
-        expr+=','
-        output=$DIRECTORY/${buffer}-${algo}.dat
-        echo "# Algo: $algo" > $output
-        echo "# ns/op ${buffer}_slice_length" >> $output
-        grep $expr $FILE | cut -d , -f 5,9 | sed -e 's/,/ /g' >> $output
+for BUFFER in ${BUFFERS}; do
+    for ALGO in ${ALGOS}; do
+        OUTPUT=${DIRECTORY}/${BUFFER}-${ALGO}.dat
+        grep "${BUFFER}.*,${ALGO}," ${FILE} | cut -d , -f 5,9 | sed -e 's/,/ /g' >> ${OUTPUT}
     done
-done
-
-# Extract length-specific performance (all algos)
-for length in $LENGTHS; do
-    output=$DIRECTORY/${length}.dat
-    echo "# Length: $length" > $output
-    echo "# Unit: ns/op" >> $output
-    echo "# Algo $BUFFERS" >> $output
-    for algo in $ALGOS; do
-        echo -n "${algo}" >> $output
-        for buffer in $BUFFERS; do
-            input=$DIRECTORY/${buffer}-${algo}.dat
-            SCORE=$(grep " ${length}$" ${input} | cut -d ' ' -f 1)
-            echo -n " $SCORE" >> $output
-        done
-        echo "" >> $output
-    done
-    sort -n -k 2 $output -o $output
-done
-
-# Plot length-specific performance (all algos)
-for length in $LENGTHS; do
-    input=$DIRECTORY/${length}.dat
-    png=$DIRECTORY/$length.png
-    opts=""
-    counter=1
-    for buffer in $BUFFERS; do
-        ((counter++))
-        opts+="-name ${buffer} -using (5*column(0)):${counter}:xtic(1) $input "
-    done
-    gplot.pl -outfile $png -type png -title "Hash of $length Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points $opts
 done
 
 # Plot algo-specific performance as length increases (all algos)
-for algo in $ALGOS; do
-    png=$DIRECTORY/$algo.png
-    opts=""
-    counter=1
-    for buffer in $BUFFERS; do
-        ((counter++))
-        input=$DIRECTORY/${buffer}-${algo}.dat
-        opts+="-name ${buffer} -using 2:1 $input "
+for ALGO in ${ALGOS}; do
+    PNG=${DIRECTORY}/${ALGO}.png
+    OPTS=""
+    COUNTER=1
+    for BUFFER in ${BUFFERS}; do
+        ((COUNTER++))
+        INPUT=${DIRECTORY}/${BUFFER}-${ALGO}.dat
+        OPTS+="-name ${BUFFER} -using 2:1 ${INPUT} "
     done
-    gplot.pl -outfile $png -type png -title "${algo} by Slice Length" -xlabel "Bytes" -ylabel "ns/hash" -set "xtics nomirror rotate by -270; set key top left" -style linespoints $opts
+    gplot.pl -outfile ${PNG} -type png -title "${ALGO} by Slice Length" -xlabel "Bytes" -ylabel "ns/hash" -set "xtics nomirror rotate by -270; set key top left" -style linespoints ${OPTS}
 done
+
+length_performance() {
+    # length outputFile algoList
+    for ALGO in $3; do
+        echo -n "${ALGO}" >> $2
+        for BUFFER in ${BUFFERS}; do
+            INPUT=${DIRECTORY}/${BUFFER}-${ALGO}.dat
+            SCORE=$(grep " ${1}$" ${INPUT} | cut -d ' ' -f 1)
+            echo -n " ${SCORE}" >> $2
+        done
+        echo "" >> $2
+    done
+    sort -n -k 2 ${2} -o ${2}
+}
+
+# Extract length-specific performance (all algos)
+for LENGTH in ${LENGTHS}; do
+    OUTPUT=${DIRECTORY}/${LENGTH}.dat
+    length_performance ${LENGTH} ${OUTPUT} "${ALGOS}"
+done
+
+# Plot length-specific performance (all algos)
+for LENGTH in ${LENGTHS}; do
+    INPUT=${DIRECTORY}/${LENGTH}.dat
+    PNG=${DIRECTORY}/${LENGTH}.png
+    OPTS=""
+    COUNTER=1
+    for BUFFER in ${BUFFERS}; do
+        ((COUNTER++))
+        OPTS+="-name ${BUFFER} -using (5*column(0)):${COUNTER}:xtic(1) ${INPUT} "
+    done
+    gplot.pl -outfile ${PNG} -type png -title "Hash of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
+done
+
+md_table() {
+    # table heading row
+    echo -n "| $1 | " >> ${INDEX}
+    for BUFFER in ${BUFFERS}; do
+        echo -n " ${BUFFER} |" >> ${INDEX}
+    done
+    echo "" >> ${INDEX}
+    # table heading separator row
+    echo -n "| --- | " >> ${INDEX}
+    for BUFFER in ${BUFFERS}; do
+        echo -n "---: | " >> ${INDEX}
+    done
+    echo "" >> ${INDEX}
+}
 
 # Summary page
-index=$DIRECTORY/README.md
-echo "# Hash-Bench Results" >> $index
+INDEX=${DIRECTORY}/README.md
+echo "# Hash-Bench Results" >> ${INDEX}
 
-echo "## Contents" >> $index
-echo "* Latency by Byte Slice Length" >> $index
-for length in $LENGTHS; do
-    echo "  * [${length}](#${length}-byte-slice-latency)" >> $index
+echo "## Contents" >> ${INDEX}
+echo "* Latency by Byte Slice Length" >> ${INDEX}
+for LENGTH in ${LENGTHS}; do
+    echo "  * [${LENGTH}](#${LENGTH}-byte-slice-latency)" >> ${INDEX}
 done
-echo "* Latency by Algorithm Implementation" >> $index
-for algo in $ALGOS; do
-    echo "  * [${algo}](#${algo}-latency)" >> $index
+echo "* Latency by Algorithm" >> ${INDEX}
+for ALGO in ${ALGOS}; do
+    echo "  * [${ALGO}](#${ALGO}-latency)" >> ${INDEX}
 done
-echo "" >> $index
-echo "---" >> $index
+echo "" >> ${INDEX}
+echo "---" >> ${INDEX}
 
 # Summary page latency by byte slice
-for length in $LENGTHS; do
-    png=$DIRECTORY/$length.png
-    echo "### ${length} Byte Slice Latency" >> $index
-    echo "![plot](${length}.png)" >> $index
-    echo "" >> $index
-    # table heading row
-    echo -n "| Algorithm | " >> $index
-    for buffer in $BUFFERS; do
-        echo -n " ${buffer} |" >> $index
-    done
-    echo "" >> $index
-    # table heading separator row
-    echo -n "| --- | " >> $index
-    for buffer in $BUFFERS; do
-        echo -n "---: | " >> $index
-    done
-    echo "" >> $index
-    # table data rows
-    SORTED_ALGOS=$(grep -v '#' $DIRECTORY/${length}.dat | cut -f 1 -d ' ')
-    for algo in $SORTED_ALGOS; do
-        echo -n "| [${algo}](#${algo}-latency)" >> $index
-        for buffer in $BUFFERS; do
-            expr='.*'
-            expr+=${buffer}
-            expr+=".*"
-            expr+=${algo}
-            expr+=","
-            expr+=${length}
-            expr+="$"
-            SCORE=$(grep $expr $FILE | cut -d ',' -f 5)
-            echo -n " | ${SCORE}" >> $index
+for LENGTH in ${LENGTHS}; do
+    echo "### ${LENGTH} Byte Slice Latency" >> ${INDEX}
+    echo "![plot](${LENGTH}.png)" >> ${INDEX}
+    echo "" >> ${INDEX}
+    md_table "Algorithm"
+    SORTED_ALGOS=$(grep -v '#' ${DIRECTORY}/${LENGTH}.dat | cut -f 1 -d ' ')
+    for ALGO in $SORTED_ALGOS; do
+        echo -n "| [${ALGO}](#${ALGO}-latency)" >> ${INDEX}
+        for BUFFER in ${BUFFERS}; do
+            SCORE=$(grep ".*${BUFFER}.*${ALGO},${LENGTH}$" ${FILE} | cut -d ',' -f 5)
+            echo -n " | ${SCORE}" >> ${INDEX}
         done
-        echo " |" >> $index
+        echo " |" >> ${INDEX}
     done
-    echo "" >> $index
-    echo "---" >> $index
+    echo "" >> ${INDEX}
+    echo "---" >> ${INDEX}
 done
 
-# Summary page latency by algorithm impl
-for algo in $ALGOS; do
-    png=$DIRECTORY/${algo}.png
-    echo "### ${algo} Latency" >> $index
-    echo "![plot](${algo}.png)" >> $index
-    echo "" >> $index
-    # table heading row
-    echo -n "| Length | " >> $index
-    for buffer in $BUFFERS; do
-        echo -n " ${buffer} |" >> $index
-    done
-    echo "" >> $index
-    # table heading separator row
-    echo -n "| --- | " >> $index
-    for buffer in $BUFFERS; do
-        echo -n "---: | " >> $index
-    done
-    echo "" >> $index
-    # table data rows
-    for length in $LENGTHS; do
-        echo -n "| [${length}](#${length}-byte-slice-latency)" >> $index
-        for buffer in $BUFFERS; do
-            expr='.*'
-            expr+=${buffer}
-            expr+=".*"
-            expr+=${algo}
-            expr+=","
-            expr+=${length}
-            expr+="$"
-            SCORE=$(grep $expr $FILE | cut -d ',' -f 5)
-            echo -n " | ${SCORE}" >> $index
+# Summary page latency by algorithm
+for ALGO in ${ALGOS}; do
+    echo "### ${ALGO} Latency" >> ${INDEX}
+    echo "![plot](${ALGO}.png)" >> ${INDEX}
+    echo "" >> ${INDEX}
+    md_table "Length"
+    for LENGTH in ${LENGTHS}; do
+        echo -n "| [${LENGTH}](#${LENGTH}-byte-slice-latency)" >> ${INDEX}
+        for BUFFER in ${BUFFERS}; do
+            SCORE=$(grep ".*${BUFFER}.*${ALGO},${LENGTH}$" ${FILE} | cut -d ',' -f 5)
+            echo -n " | ${SCORE}" >> ${INDEX}
         done
-        echo " |" >> $index
+        echo " |" >> ${INDEX}
     done
-    echo "" >> $index
-    echo "---" >> $index
+    echo "" >> ${INDEX}
+    echo "---" >> ${INDEX}
 done
 
 rm $DIRECTORY/*.dat
 
-echo "Generated from [JMH CSV](${FILE}) on $(date -Ru) by [Hash-Bench](https://github.com/benalexau/hash-bench)." >> $index
+echo "Generated from [JMH CSV](${FILE}) on $(date -Ru) by [Hash-Bench](https://github.com/benalexau/hash-bench)." >> ${INDEX}
