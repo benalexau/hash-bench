@@ -5,7 +5,6 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 
 import org.openjdk.jmh.annotations.Benchmark;
@@ -57,13 +56,6 @@ public class HashBench {
       if (key.contains("_")) {
         throw new IllegalStateException(key);
       }
-    }
-  }
-
-  public static void main(final String[] args) {
-    System.out.println("Hash-Bench supported algorithms:");
-    for (final String key : new TreeSet<String>(HashBench.HASHERS.keySet())) {
-      System.out.println(key);
     }
   }
 

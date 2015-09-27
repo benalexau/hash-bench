@@ -86,6 +86,7 @@ You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
   * ``-f 1`` to run one fork only (not recommended)
   * ``-p length=8,1024`` to test input lengths of 8 and 1024 only
   * ``-p algo=xxh64-zah,xxh64-jpountz-unsafe`` to test two XXH64 implementations
+  * ``-lp`` to list all available parameter (``-p`` keys and values)
   * ``-rf csv`` to emit CSV output (for use in a spreadsheet etc)
 
 ## Naming Convention
@@ -98,10 +99,6 @@ The ``hash`` portion denotes the underlying hash specification (and potential
 size disambiguation). The ``implementation`` is a short abbreviation that
 identifes the implementation from those listed at the top of this document. A
 ``qualifier`` is used if the implementation has been tested in a specific mode.
-
-Invoke ``java -cp target/benchmarks.jar au.com.acegi.hashbench.HashBench`` to
-list all supported algorithm names. These are also displayed in the ``algo``
-column when you run the actual benchmark, and in the result pages and plots.
 
 ## License
 MIT License, as per [LICENSE.txt](LICENSE.txt).
