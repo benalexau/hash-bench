@@ -5,10 +5,10 @@ import java.util.Map;
 import java.util.zip.Adler32;
 
 public class AdlerHasher implements Hasher {
-  public static final String JRE_ADLER_32 = "adler32-jre";
+  public static final String ADLER_32 = "adler32-jre";
 
   public static final void register(final Map<String, Hasher> hashers) {
-    hashers.put(AdlerHasher.JRE_ADLER_32, new AdlerHasher());
+    hashers.put(AdlerHasher.ADLER_32, new AdlerHasher());
   }
 
   private final Adler32 delegate = new Adler32();

@@ -7,16 +7,16 @@ import net.jpountz.xxhash.XXHash32;
 import net.jpountz.xxhash.XXHashFactory;
 
 public class Jp32Hasher implements Hasher {
-  public static final String JP_XXH32_JNI = "xxh32-jpountz-jni";
-  public static final String JP_XXH32_SAFE = "xxh32-jpountz-safe";
-  public static final String JP_XXH32_UNSAFE = "xxh32-pountz-unsafe";
+  public static final String XXH32_JNI = "xxh32-jpountz-jni";
+  public static final String XXH32_SAFE = "xxh32-jpountz-safe";
+  public static final String XXH32_UNSAFE = "xxh32-pountz-unsafe";
 
   public static final void register(final Map<String, Hasher> hashers) {
-    hashers.put(Jp32Hasher.JP_XXH32_JNI,
+    hashers.put(Jp32Hasher.XXH32_JNI,
             new Jp32Hasher(XXHashFactory.nativeInstance().hash32()));
-    hashers.put(Jp32Hasher.JP_XXH32_UNSAFE,
+    hashers.put(Jp32Hasher.XXH32_UNSAFE,
             new Jp32Hasher(XXHashFactory.unsafeInstance().hash32()));
-    hashers.put(Jp32Hasher.JP_XXH32_SAFE,
+    hashers.put(Jp32Hasher.XXH32_SAFE,
             new Jp32Hasher(XXHashFactory.safeInstance().hash32()));
   }
 

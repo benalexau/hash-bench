@@ -10,10 +10,10 @@ public class SipInlineHasher implements Hasher {
   private static final long KEY_0 = 3945;
   private static final long KEY_1 = 6425;
 
-  public static final String SIP_INLINE = "sip-inline";
+  public static final String SIP = "sip-inline";
 
   public static final void register(final Map<String, Hasher> hashers) {
-    hashers.put(SipInlineHasher.SIP_INLINE, new SipInlineHasher());
+    hashers.put(SipInlineHasher.SIP, new SipInlineHasher());
   }
 
   private SipInlineHasher() {}
