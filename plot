@@ -144,19 +144,36 @@ md_table() {
 # Summary page
 INDEX=${DIRECTORY}/README.md
 echo "# Hash-Bench Results" >> ${INDEX}
-
 echo "## Contents" >> ${INDEX}
-echo "* Latency by Byte Slice Length" >> ${INDEX}
+echo "### Latency by Byte Slice Length" >> ${INDEX}
+# table heading row
+echo -n "| Hash | " >> ${INDEX}
 for LENGTH in ${LENGTHS}; do
-    echo "  * ${LENGTH} bytes" >> ${INDEX}
-    echo "    * [All Hashes](#${LENGTH}-byte-slice-latency-all-hashes)" >> ${INDEX}
-    for HASH in ${HASHES}; do
-        echo "    * [${HASH}](#${LENGTH}-byte-slice-latency-${HASH})" >> ${INDEX}
-    done
+    echo -n "${LENGTH} |" >> ${INDEX}
 done
-echo "* Latency by Algorithm" >> ${INDEX}
+echo "" >> ${INDEX}
+# table heading separator row
+echo -n "| --- | " >> ${INDEX}
+for LENGTH in ${LENGTHS}; do
+    echo -n ":---: | " >> ${INDEX}
+done
+echo "" >> ${INDEX}
+# table data rows
+echo -n "| All | " >> ${INDEX}
+for LENGTH in ${LENGTHS}; do
+    echo -n "[*](#${LENGTH}-byte-slice-latency-all-hashes) | " >> ${INDEX}
+done
+echo "" >> ${INDEX}
+for HASH in ${HASHES}; do
+    echo -n "| ${HASH} | " >> ${INDEX}
+    for LENGTH in ${LENGTHS}; do
+        echo -n "[*](#${LENGTH}-byte-slice-latency-${HASH}) | " >> ${INDEX}
+    done
+    echo "" >> ${INDEX}
+done
+echo "### Latency by Algorithm" >> ${INDEX}
 for ALGO in ${ALGOS}; do
-    echo "  * [${ALGO}](#${ALGO}-latency)" >> ${INDEX}
+    echo " * [${ALGO}](#${ALGO}-latency)" >> ${INDEX}
 done
 echo "" >> ${INDEX}
 echo "---" >> ${INDEX}
@@ -202,7 +219,7 @@ for ALGO in ${ALGOS}; do
     echo "" >> ${INDEX}
     md_table "Length"
     for LENGTH in ${LENGTHS}; do
-        echo -n "| [${LENGTH}](#${LENGTH}-byte-slice-latency)" >> ${INDEX}
+        echo -n "| [${LENGTH}](#${LENGTH}-byte-slice-latency-all-hashes)" >> ${INDEX}
         for BUFFER in ${BUFFERS}; do
             SCORE=$(grep ".*${BUFFER}.*${ALGO},${LENGTH}$" ${FILE} | cut -d ',' -f 5)
             echo -n " | ${SCORE}" >> ${INDEX}
