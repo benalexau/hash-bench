@@ -102,6 +102,30 @@ for LENGTH in ${LENGTHS}; do
     gplot.pl -outfile ${PNG} -type png -title "Hash of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
 done
 
+# Extract length-specific performance by hash family
+for LENGTH in ${LENGTHS}; do
+    for HASH in ${HASHES}; do
+        OUTPUT=${DIRECTORY}/${LENGTH}-${HASH}.dat
+        INCLUDE=$(echo "${ALGOS}" | tr ' ' '\n' | grep "^${HASH}-" | tr '\n' ' ')
+        length_performance ${LENGTH} ${OUTPUT} "${INCLUDE}"
+    done
+done
+
+# Plot length-specific performance by hash family
+for LENGTH in ${LENGTHS}; do
+    for HASH in ${HASHES}; do
+        INPUT=${DIRECTORY}/${LENGTH}-${HASH}.dat
+        PNG=${DIRECTORY}/${LENGTH}-${HASH}.png
+        OPTS=""
+        COUNTER=1
+        for BUFFER in ${BUFFERS}; do
+            ((COUNTER++))
+            OPTS+="-name ${BUFFER} -using (5*column(0)):${COUNTER}:xtic(1) ${INPUT} "
+        done
+        gplot.pl -outfile ${PNG} -type png -title "${HASH} of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
+    done
+done
+
 md_table() {
     # table heading row
     echo -n "| $1 | " >> ${INDEX}
@@ -124,7 +148,11 @@ echo "# Hash-Bench Results" >> ${INDEX}
 echo "## Contents" >> ${INDEX}
 echo "* Latency by Byte Slice Length" >> ${INDEX}
 for LENGTH in ${LENGTHS}; do
-    echo "  * [${LENGTH}](#${LENGTH}-byte-slice-latency)" >> ${INDEX}
+    echo "  * [${LENGTH}] bytes" >> ${INDEX}
+    echo "  * [All Hashes](#${LENGTH}-byte-slice-latency-all-hashes)" >> ${INDEX}
+    for HASH in ${HASHES}; do
+        echo "  * [${HASH}](#${LENGTH}-byte-slice-latency-${HASH})" >> ${INDEX}
+    done
 done
 echo "* Latency by Algorithm" >> ${INDEX}
 for ALGO in ${ALGOS}; do
@@ -133,13 +161,9 @@ done
 echo "" >> ${INDEX}
 echo "---" >> ${INDEX}
 
-# Summary page latency by byte slice
-for LENGTH in ${LENGTHS}; do
-    echo "### ${LENGTH} Byte Slice Latency" >> ${INDEX}
-    echo "![plot](${LENGTH}.png)" >> ${INDEX}
-    echo "" >> ${INDEX}
-    md_table "Algorithm"
-    SORTED_ALGOS=$(grep -v '#' ${DIRECTORY}/${LENGTH}.dat | cut -f 1 -d ' ')
+latency_by_length() {
+    # inputFile
+    SORTED_ALGOS=$(grep -v '#' $1 | cut -f 1 -d ' ')
     for ALGO in $SORTED_ALGOS; do
         echo -n "| [${ALGO}](#${ALGO}-latency)" >> ${INDEX}
         for BUFFER in ${BUFFERS}; do
@@ -150,6 +174,26 @@ for LENGTH in ${LENGTHS}; do
     done
     echo "" >> ${INDEX}
     echo "---" >> ${INDEX}
+}
+
+# Summary page latency by byte slice (all hashes)
+for LENGTH in ${LENGTHS}; do
+    echo "### ${LENGTH} Byte Slice Latency (All Hashes)" >> ${INDEX}
+    echo "![plot](${LENGTH}.png)" >> ${INDEX}
+    echo "" >> ${INDEX}
+    md_table "Algorithm"
+    latency_by_length ${DIRECTORY}/${LENGTH}.dat
+done
+
+# Summary page latency by byte slice by hash
+for LENGTH in ${LENGTHS}; do
+    for HASH in ${HASHES}; do
+        echo "### ${LENGTH} Byte Slice Latency (${HASH})" >> ${INDEX}
+        echo "![plot](${LENGTH}-${HASH}.png)" >> ${INDEX}
+        echo "" >> ${INDEX}
+        md_table "Algorithm"
+        latency_by_length ${DIRECTORY}/${LENGTH}-${HASH}.dat
+    done
 done
 
 # Summary page latency by algorithm
@@ -170,6 +214,6 @@ for ALGO in ${ALGOS}; do
     echo "---" >> ${INDEX}
 done
 
-rm $DIRECTORY/*.dat
+rm ${DIRECTORY}/*.dat
 
 echo "Generated from [JMH CSV](${FILE}) on $(date -Ru) by [Hash-Bench](https://github.com/benalexau/hash-bench)." >> ${INDEX}
