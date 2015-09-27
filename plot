@@ -148,10 +148,10 @@ echo "# Hash-Bench Results" >> ${INDEX}
 echo "## Contents" >> ${INDEX}
 echo "* Latency by Byte Slice Length" >> ${INDEX}
 for LENGTH in ${LENGTHS}; do
-    echo "  * [${LENGTH}] bytes" >> ${INDEX}
-    echo "  * [All Hashes](#${LENGTH}-byte-slice-latency-all-hashes)" >> ${INDEX}
+    echo "  * ${LENGTH} bytes" >> ${INDEX}
+    echo "    * [All Hashes](#${LENGTH}-byte-slice-latency-all-hashes)" >> ${INDEX}
     for HASH in ${HASHES}; do
-        echo "  * [${HASH}](#${LENGTH}-byte-slice-latency-${HASH})" >> ${INDEX}
+        echo "    * [${HASH}](#${LENGTH}-byte-slice-latency-${HASH})" >> ${INDEX}
     done
 done
 echo "* Latency by Algorithm" >> ${INDEX}

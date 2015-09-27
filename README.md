@@ -1,16 +1,25 @@
 ## Overview
 Hash-Bench provides a JMH (Java microbenchmark harness) and
-[published results](results/1/README.md) for the following JVM hashing implementations:
+[published results](results/2/README.md) for the following JVM hashing implementations:
 
-* [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
-* [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
-* [Guava](https://github.com/google/guava/wiki/HashingExplained)
-* [xxHash for Java](https://github.com/jpountz/lz4-java)
-* [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
-* [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
-* [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
+* JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
+* JRE [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
+* Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
+* @jpountz [xxHash for Java](https://github.com/jpountz/lz4-java)
+* Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
+* Inline [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
+* OpenHFT [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
 
-![Results](results/1/2048.png)
+## Results
+A wide variety of plots are generated, including by byte slice length,
+by hash specification, and by implementation. This should let you determine the
+lowest latency hash for your target byte size, compare the different
+implementations of that hash, and evaluate how well an implementation responds
+to different input types (eg ``byte[]`` vs ``ByteBuffer``) and lengths.
+
+An example plot is below, but there are [many more](results/2/README.md):
+
+![Results](results/2/2048.png)
 
 ## Scope
 This project is focused on JVM performance.
@@ -85,14 +94,10 @@ optionally for the ``-p algo`` option. The naming convention is:
 
     hash-implementation[-qualifier]
 
-The ``hash`` portion denotes the underlying hash algorithm (and potential size
-disambiguation). The ``implementation`` is a short abbreviation that identifes
-the implementation from those listed at the top of this document. A
+The ``hash`` portion denotes the underlying hash specification (and potential
+size disambiguation). The ``implementation`` is a short abbreviation that
+identifes the implementation from those listed at the top of this document. A
 ``qualifier`` is used if the implementation has been tested in a specific mode.
-
-The published results page uses this naming convention to group related results.
-For example, all implementations of a particular hash are compared, and all
-available hashes from a particular implementation are compared.
 
 Invoke ``java -cp target/benchmarks.jar au.com.acegi.hashbench.HashBench`` to
 list all supported algorithm names. These are also displayed in the ``algo``
@@ -115,3 +120,4 @@ to new library versions etc).
 | Date       | Processor     | JVM              | Results Link             |
 | ---------- | ------------- | ---------------- | ------------------------ |
 | 2015-09-24 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [1](results/1/README.md) |
+| 2015-09-26 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [2](results/2/README.md) |
