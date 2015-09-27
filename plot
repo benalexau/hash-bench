@@ -122,7 +122,7 @@ for LENGTH in ${LENGTHS}; do
             ((COUNTER++))
             OPTS+="-name ${BUFFER} -using (5*column(0)):${COUNTER}:xtic(1) ${INPUT} "
         done
-        gplot.pl -outfile ${PNG} -type png -title "${HASH} of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
+        gplot.pl -outfile ${PNG} -type png -title "${HASH} of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash" -set "xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
     done
 done
 
@@ -176,17 +176,16 @@ latency_by_length() {
     echo "---" >> ${INDEX}
 }
 
-# Summary page latency by byte slice (all hashes)
+# Summary page latency by byte slice
 for LENGTH in ${LENGTHS}; do
+    ## all hashes
     echo "### ${LENGTH} Byte Slice Latency (All Hashes)" >> ${INDEX}
     echo "![plot](${LENGTH}.png)" >> ${INDEX}
     echo "" >> ${INDEX}
     md_table "Algorithm"
     latency_by_length ${DIRECTORY}/${LENGTH}.dat
-done
 
-# Summary page latency by byte slice by hash
-for LENGTH in ${LENGTHS}; do
+    ## by hash
     for HASH in ${HASHES}; do
         echo "### ${LENGTH} Byte Slice Latency (${HASH})" >> ${INDEX}
         echo "![plot](${LENGTH}-${HASH}.png)" >> ${INDEX}
