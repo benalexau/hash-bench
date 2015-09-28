@@ -23,6 +23,7 @@ hash uniq 2>/dev/null || { printf "uniq not found\n"; exit 1; }
 hash sed 2>/dev/null || { printf "sed not found\n"; exit 1; }
 hash tr 2>/dev/null || { printf "tr not found\n"; exit 1; }
 hash sort 2>/dev/null || { printf "sort not found\n"; exit 1; }
+hash head 2>/dev/null || { printf "head not found\n"; exit 1; }
 
 FILE=$1
 DIRECTORY=$2
@@ -89,9 +90,12 @@ for LENGTH in ${LENGTHS}; do
     length_performance ${LENGTH} ${OUTPUT} "${ALGOS}"
 done
 
-# Plot length-specific performance (all algos)
+# Plot length-specific performance (all algos, fast only)
 for LENGTH in ${LENGTHS}; do
-    INPUT=${DIRECTORY}/${LENGTH}.dat
+    FULL_INPUT=${DIRECTORY}/${LENGTH}.dat
+    TOP=30
+    INPUT=${DIRECTORY}/${LENGTH}-fastest.dat
+    cat ${FULL_INPUT} | head -n ${TOP} > ${INPUT}
     PNG=${DIRECTORY}/${LENGTH}.png
     OPTS=""
     COUNTER=1
@@ -99,7 +103,7 @@ for LENGTH in ${LENGTHS}; do
         ((COUNTER++))
         OPTS+="-name ${BUFFER} -using (5*column(0)):${COUNTER}:xtic(1) ${INPUT} "
     done
-    gplot.pl -outfile ${PNG} -type png -title "Hash of ${LENGTH} Byte Slice" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
+    gplot.pl -outfile ${PNG} -type png -title "Hash of ${LENGTH} Byte Slice (Fastest ${TOP})" -xlabel "" -ylabel "ns/hash (log scale)" -set "logscale y; set xtics nomirror rotate by -270; set key top left" -pointsize 1 -style points ${OPTS}
 done
 
 # Extract length-specific performance by hash family
