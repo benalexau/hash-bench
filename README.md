@@ -1,6 +1,6 @@
 ## Overview
 Hash-Bench provides a JMH (Java microbenchmark harness) and
-[published results](results/2/README.md) for the following JVM hashing implementations:
+[published results](results/2/README.md) for the following JVM hashing and checksum implementations:
 
 * [Jacksum](http://www.jonelo.de/java/jacksum/)
 * JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
