@@ -2,6 +2,7 @@
 Hash-Bench provides a JMH (Java microbenchmark harness) and
 [published results](results/2/README.md) for the following JVM hashing implementations:
 
+* [Jacksum](http://www.jonelo.de/java/jacksum/)
 * JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
 * JRE [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
 * Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
@@ -69,6 +70,13 @@ edit the ``hash-bench/pom.xml`` to reflect the locally-installed snapshot.
 Similarly locally build [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
 before 0.5 is released.
 
+Hash-Bench also requires [Jacksum](http://www.jonelo.de/java/jacksum/).
+Jacksum is not in any Maven repository, so download it, unzip, then
+
+    mvn install:install-file -Dfile=jacksum.jar -DgroupId=jonelo.jacksum -DartifactId=jacksum -Dversion=1.7 -Dpackaging=jar
+    mv jacksum-src.zip jacksum-sources.jar
+    mvn deploy:deploy-file -Dfile=jacksum-sources.jar -DgroupId=jonelo.jacksum -DartifactId=jacksum -Dversion=1.7 -Dpackaging=jar -Dclassifier=sources -Durl=file://$HOME/.m2/repository/
+
 ## Running
 You'll need at least Java 8 and Maven 3 installed. Then:
 
@@ -102,6 +110,11 @@ identifes the implementation from those listed at the top of this document. A
 
 ## License
 MIT License, as per [LICENSE.txt](LICENSE.txt).
+
+This project uses [Jacksum](http://sourceforge.net/projects/jacksum/), which is
+which is GPLv2 licensed. Hash-Bench is not derived from Jacksum and is not
+including or redistributing any Jacksum files (you must manually download and
+install Jacksum yourself, as described above).
 
 Two hash implementations (SipHash_2_4, Siphash-java-inline) are not available
 from any known Maven repository. As each implementation is a single file, they

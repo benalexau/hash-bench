@@ -24,6 +24,7 @@ import au.com.acegi.hashbench.hashers.AdlerHasher;
 import au.com.acegi.hashbench.hashers.CRC32Hasher;
 import au.com.acegi.hashbench.hashers.GuavaHasher;
 import au.com.acegi.hashbench.hashers.Hasher;
+import au.com.acegi.hashbench.hashers.JacksumHasher;
 import au.com.acegi.hashbench.hashers.Jp32Hasher;
 import au.com.acegi.hashbench.hashers.Jp64Hasher;
 import au.com.acegi.hashbench.hashers.SipFwdHasher;
@@ -47,6 +48,7 @@ public class HashBench {
     AdlerHasher.register(HashBench.HASHERS);
     CRC32Hasher.register(HashBench.HASHERS);
     GuavaHasher.register(HashBench.HASHERS);
+    JacksumHasher.register(HashBench.HASHERS);
     Jp32Hasher.register(HashBench.HASHERS);
     Jp64Hasher.register(HashBench.HASHERS);
     SipFwdHasher.register(HashBench.HASHERS);
@@ -75,6 +77,56 @@ public class HashBench {
           GuavaHasher.SHA384,
           GuavaHasher.SHA512,
           GuavaHasher.SIP,
+          JacksumHasher.HAS160,
+          JacksumHasher.HAVAL128H3,
+          JacksumHasher.HAVAL128H4,
+          JacksumHasher.HAVAL128H5,
+          JacksumHasher.HAVAL160H3,
+          JacksumHasher.HAVAL160H4,
+          JacksumHasher.HAVAL160H5,
+          JacksumHasher.HAVAL192H3,
+          JacksumHasher.HAVAL192H4,
+          JacksumHasher.HAVAL192H5,
+          JacksumHasher.HAVAL224H3,
+          JacksumHasher.HAVAL224H4,
+          JacksumHasher.HAVAL224H5,
+          JacksumHasher.HAVAL256H3,
+          JacksumHasher.HAVAL256H4,
+          JacksumHasher.HAVAL256H5,
+          JacksumHasher.MD2,
+          JacksumHasher.MD4,
+          JacksumHasher.MD5,
+          JacksumHasher.MD5_ALT,
+          JacksumHasher.RIPEMD128,
+          JacksumHasher.RIPEMD160,
+          JacksumHasher.RIPEMD256,
+          JacksumHasher.RIPEMD320,
+          JacksumHasher.SHA0,
+          JacksumHasher.SHA1,
+          JacksumHasher.SHA1_ALT,
+          JacksumHasher.SHA224,
+          JacksumHasher.SHA256,
+          JacksumHasher.SHA256_ALT,
+          JacksumHasher.SHA384,
+          JacksumHasher.SHA384_ALT,
+          JacksumHasher.SHA512,
+          JacksumHasher.SHA512_ALT,
+          JacksumHasher.SUM16,
+          JacksumHasher.SUM24,
+          JacksumHasher.SUM32,
+          JacksumHasher.SUM8,
+          JacksumHasher.SUMBSD,
+          JacksumHasher.SUMSYSV,
+          JacksumHasher.TIGER,
+          JacksumHasher.TIGER_TREE,
+          JacksumHasher.TIGER128,
+          JacksumHasher.TIGER160,
+          JacksumHasher.TIGER2,
+          JacksumHasher.TIGER2_TREE,
+          JacksumHasher.WHIRLPOOL0,
+          JacksumHasher.WHIRLPOOL1,
+          JacksumHasher.WHIRLPOOL2,
+          JacksumHasher.XOR8,
           Jp32Hasher.XXH32_JNI,
           Jp32Hasher.XXH32_SAFE,
           Jp32Hasher.XXH32_UNSAFE,
