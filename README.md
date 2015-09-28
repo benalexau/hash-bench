@@ -112,7 +112,7 @@ identifes the implementation from those listed at the top of this document. A
 MIT License, as per [LICENSE.txt](LICENSE.txt).
 
 This project uses [Jacksum](http://sourceforge.net/projects/jacksum/), which is
-which is GPLv2 licensed. Hash-Bench is not derived from Jacksum and is not
+GPLv2 licensed. Hash-Bench is not derived from Jacksum and is not
 including or redistributing any Jacksum files (you must manually download and
 install Jacksum yourself, as described above).
 
