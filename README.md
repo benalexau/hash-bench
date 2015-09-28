@@ -85,7 +85,7 @@ You'll need at least Java 8 and Maven 3 installed. Then:
     java -jar target/benchmarks.jar
 
 This will run in default mode, testing all known libraries and input lengths.
-This takes roughly eight hours with server-grade (Xeon E5-2667) hardware.
+This takes roughly 27 hours with server-grade (Xeon E5-2667) hardware.
 
 You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
 
