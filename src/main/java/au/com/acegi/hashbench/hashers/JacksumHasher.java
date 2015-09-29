@@ -48,8 +48,8 @@ public class JacksumHasher implements Hasher {
   public static final String RIPEMD256 = "ripemd256-jacksum";
   public static final String RIPEMD320 = "ripemd320-jacksum";
   public static final String SHA0 = "sha0-jacksum";
-  public static final String SHA1 = "sha0-jacksum";
-  public static final String SHA1_ALT = "sha0-jacksum-alt";
+  public static final String SHA1 = "sha1-jacksum";
+  public static final String SHA1_ALT = "sha1-jacksum-alt";
   public static final String SHA224 = "sha224-jacksum";
   public static final String SHA256 = "sha256-jacksum";
   public static final String SHA256_ALT = "sha256-jacksum-alt";

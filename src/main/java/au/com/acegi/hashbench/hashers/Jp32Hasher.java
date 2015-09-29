@@ -9,7 +9,7 @@ import net.jpountz.xxhash.XXHashFactory;
 public class Jp32Hasher implements Hasher {
   public static final String XXH32_JNI = "xxh32-jpountz-jni";
   public static final String XXH32_SAFE = "xxh32-jpountz-safe";
-  public static final String XXH32_UNSAFE = "xxh32-pountz-unsafe";
+  public static final String XXH32_UNSAFE = "xxh32-jpountz-unsafe";
 
   public static final void register(final Map<String, Hasher> hashers) {
     hashers.put(Jp32Hasher.XXH32_JNI,
