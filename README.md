@@ -1,14 +1,48 @@
 ## Overview
 Hash-Bench provides a JMH (Java microbenchmark harness) and
-[published results](results/2/README.md) for the following JVM hashing and checksum implementations:
+[published results](results/2/README.md) for numerous hash, CRC and checksum
+functions:
 
-* [Jacksum](http://www.jonelo.de/java/jacksum/)
+* [Adler32](https://en.wikipedia.org/wiki/Adler-32)
+* [BSD Checksum](https://en.wikipedia.org/wiki/BSD_checksum)
+* [CityHash](https://en.wikipedia.org/wiki/CityHash)
+* [cksum](https://en.wikipedia.org/wiki/Cksum)
+* [crc16](https://en.wikipedia.org/wiki/Crc16)
+* [crc24](https://en.wikipedia.org/wiki/Cyclic_redundancy_check#Standards_and_common_use)
+* [crc32](https://en.wikipedia.org/wiki/Crc32)
+* [crc64](https://en.wikipedia.org/wiki/Crc64)
+* [Ed2k Hash](https://en.wikipedia.org/wiki/Ed2k_URI_scheme#eD2k_hash_algorithm)
+* [ElfHash](https://en.wikipedia.org/wiki/PJW_hash_function)
+* [FarmHash](https://github.com/google/farmhash)
+* [Fast Frame Check Sequence (FCS-16)](http://www.ietf.org/rfc/rfc1331.txt)
+* [Good Fast Hash](https://github.com/google/guava/wiki/HashingExplained)
+* [GOST](https://en.wikipedia.org/wiki/GOST_(hash_function))
+* [HAS-160](https://en.wikipedia.org/wiki/HAS-160)
+* [HAVAL](https://en.wikipedia.org/wiki/HAVAL)
+* [MD2](https://en.wikipedia.org/wiki/MD2_(cryptography))
+* [MD4](https://en.wikipedia.org/wiki/MD4)
+* [MD5](https://en.wikipedia.org/wiki/MD5)
+* [MurmurHash](https://en.wikipedia.org/wiki/MurmurHash)
+* [RIPEMD](https://en.wikipedia.org/wiki/RIPEMD)
+* [SHA-1](https://en.wikipedia.org/wiki/SHA-1) (including SHA-0)
+* [SHA-2](https://en.wikipedia.org/wiki/SHA-2) (SHA-224, 256, 384 and 512)
+* [SipHash](https://en.wikipedia.org/wiki/SipHash)
+* [Sum](https://en.wikipedia.org/wiki/List_of_hash_functions#Checksums)
+* [SYSV Checksum](https://en.wikipedia.org/wiki/SYSV_checksum)
+* [Tiger](https://en.wikipedia.org/wiki/Tiger_(cryptography)) (including Tiger 2)
+* [Whirlpool](https://en.wikipedia.org/wiki/Whirlpool_(cryptography))
+* [xor8](https://en.wikipedia.org/wiki/Longitudinal_redundancy_check)
+* [xxHash](https://github.com/Cyan4973/xxHash) (both XXH32 and XXH64)
+
+Multiple implementations are tested:
+
+* Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
+* Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
+* Inline [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
+* Johann Löfflmann [Jacksum](http://www.jonelo.de/java/jacksum/)
 * JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
 * JRE [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
-* Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
-* @jpountz [xxHash for Java](https://github.com/jpountz/lz4-java)
-* Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
-* Inline [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
+* Adrien Grand (@jpountz) [xxHash for Java](https://github.com/jpountz/lz4-java)
 * OpenHFT [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
 
 ## Results
@@ -85,7 +119,7 @@ You'll need at least Java 8 and Maven 3 installed. Then:
     java -jar target/benchmarks.jar
 
 This will run in default mode, testing all known libraries and input lengths.
-This takes roughly 27 hours with server-grade (Xeon E5-2667) hardware.
+This takes roughly 36 hours with server-grade (Xeon E5-2667) hardware.
 
 You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
 
