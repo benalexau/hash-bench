@@ -26,7 +26,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		  <!--  built from commit 657f63918426133a3d0997650ab81b8c6fba2dd4 -->
+			<!-- built from commit 657f63918426133a3d0997650ab81b8c6fba2dd4 -->
 			<groupId>net.openhft</groupId>
 			<artifactId>zero-allocation-hashing</artifactId>
 			<version>0.5.20150926</version>
@@ -52,6 +52,11 @@
 			<groupId>jonelo.jacksum</groupId>
 			<artifactId>jacksum</artifactId>
 			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-debug-jdk15on</artifactId>
+			<version>1.52</version>
 		</dependency>
 	</dependencies>
 

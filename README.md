@@ -1,6 +1,6 @@
 ## Overview
 Hash-Bench provides a JMH (Java microbenchmark harness) and
-[published results](#results) for 92 Java implementations of major
+[published results](#results) for 114 Java implementations of major
 hash, CRC and checksum algorithms. These include:
 
 * [Adler32](https://en.wikipedia.org/wiki/Adler-32)
@@ -23,10 +23,13 @@ hash, CRC and checksum algorithms. These include:
 * [MD4](https://en.wikipedia.org/wiki/MD4)
 * [MD5](https://en.wikipedia.org/wiki/MD5)
 * [MurmurHash](https://en.wikipedia.org/wiki/MurmurHash)
-* [RIPEMD](https://en.wikipedia.org/wiki/RIPEMD)
+* [RIPEMD](https://en.wikipedia.org/wiki/RIPEMD) (128, 160, 256 and 320)
 * [SHA-1](https://en.wikipedia.org/wiki/SHA-1) (including SHA-0)
-* [SHA-2](https://en.wikipedia.org/wiki/SHA-2) (SHA-224, 256, 384 and 512)
+* [SHA-2](https://en.wikipedia.org/wiki/SHA-2) (SHA-224, 256, 384, 512, 512/t)
+* [SHA-3](https://en.wikipedia.org/wiki/SHA-3)
 * [SipHash](https://en.wikipedia.org/wiki/SipHash)
+* [Skein](https://en.wikipedia.org/wiki/Skein_(hash_function)) (256, 512, 1024)
+* [SM3](http://tools.ietf.org/html/draft-shen-sm3-hash-00)
 * [Sum](https://en.wikipedia.org/wiki/List_of_hash_functions#Checksums)
 * [SYSV Checksum](https://en.wikipedia.org/wiki/SYSV_checksum)
 * [Tiger](https://en.wikipedia.org/wiki/Tiger_(cryptography)) (including Tiger 2)
@@ -36,6 +39,7 @@ hash, CRC and checksum algorithms. These include:
 
 Implementations tested:
 
+* [Bouncy Castle](http://bouncycastle.org/java.html)
 * Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
 * Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
 * Inline [siphash-java-inline](https://github.com/nahi/siphash-java-inline)
@@ -125,7 +129,7 @@ You'll need at least Java 8 and Maven 3 installed. Then:
     java -jar target/benchmarks.jar
 
 This will run in default mode, testing all known libraries and input lengths.
-This takes roughly 36 hours with server-grade (Xeon E5-2667) hardware.
+This takes roughly 15 hours with server-grade (Xeon E5-2667) hardware.
 
 You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
 

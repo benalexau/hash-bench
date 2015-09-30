@@ -21,6 +21,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 import au.com.acegi.hashbench.hashers.AdlerHasher;
+import au.com.acegi.hashbench.hashers.BouncyCastleHasher;
 import au.com.acegi.hashbench.hashers.CRC32Hasher;
 import au.com.acegi.hashbench.hashers.GuavaHasher;
 import au.com.acegi.hashbench.hashers.Hasher;
@@ -46,6 +47,7 @@ public class HashBench {
   static {
     OFFSET = HashBench.RND.nextInt(32000);
     AdlerHasher.register(HashBench.HASHERS);
+    BouncyCastleHasher.register(HashBench.HASHERS);
     CRC32Hasher.register(HashBench.HASHERS);
     GuavaHasher.register(HashBench.HASHERS);
     JacksumHasher.register(HashBench.HASHERS);
@@ -63,6 +65,27 @@ public class HashBench {
 
   @Param({
           AdlerHasher.ADLER_32,
+          BouncyCastleHasher.GOST,
+          BouncyCastleHasher.MD2,
+          BouncyCastleHasher.MD4,
+          BouncyCastleHasher.MD5,
+          BouncyCastleHasher.RIPEMD128,
+          BouncyCastleHasher.RIPEMD160,
+          BouncyCastleHasher.RIPEMD256,
+          BouncyCastleHasher.RIPEMD320,
+          BouncyCastleHasher.SHA1,
+          BouncyCastleHasher.SHA224,
+          BouncyCastleHasher.SHA256,
+          BouncyCastleHasher.SHA3,
+          BouncyCastleHasher.SHA384,
+          BouncyCastleHasher.SHA512,
+          BouncyCastleHasher.SHA512_T,
+          BouncyCastleHasher.SKEIN1024,
+          BouncyCastleHasher.SKEIN256,
+          BouncyCastleHasher.SKEIN512,
+          BouncyCastleHasher.SM3,
+          BouncyCastleHasher.TIGER,
+          BouncyCastleHasher.WHIRLPOOL2,
           CRC32Hasher.CRC_32,
           GuavaHasher.ADLER32,
           GuavaHasher.CRC32_DELEGATING,
