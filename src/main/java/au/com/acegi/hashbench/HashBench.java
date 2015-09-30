@@ -33,9 +33,9 @@ import au.com.acegi.hashbench.hashers.ZeroAllocHasher;
 
 @State(Scope.Thread)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@Fork(2)
-@Warmup(iterations = 5, time = 3, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 3, timeUnit = TimeUnit.SECONDS)
+@Fork(1)
+@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 2, timeUnit = TimeUnit.SECONDS)
 @BenchmarkMode(Mode.AverageTime)
 public class HashBench {
   private static final int BUFFER_SIZE = 65536;
