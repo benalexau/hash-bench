@@ -1,6 +1,7 @@
 ## Overview
 Hash-Bench provides a JMH (Java microbenchmark harness) and
-[published results](#results) for numerous hash, CRC and checksum functions:
+[published results](#results) for 92 Java implementations of major
+hash, CRC and checksum algorithms. These include:
 
 * [Adler32](https://en.wikipedia.org/wiki/Adler-32)
 * [BSD Checksum](https://en.wikipedia.org/wiki/BSD_checksum)
@@ -33,7 +34,7 @@ Hash-Bench provides a JMH (Java microbenchmark harness) and
 * [xor8](https://en.wikipedia.org/wiki/Longitudinal_redundancy_check)
 * [xxHash](https://github.com/Cyan4973/xxHash) (both XXH32 and XXH64)
 
-Multiple implementations are tested:
+Implementations tested:
 
 * Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
 * Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
