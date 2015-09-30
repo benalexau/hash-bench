@@ -139,7 +139,8 @@ You can append ``-h`` to the ``java -jar`` line for JMH help. For example, use:
   * ``-p length=8,1024`` to test input lengths of 8 and 1024 only
   * ``-p algo=xxh64-zah,xxh64-jpountz-unsafe`` to test two XXH64 implementations
   * ``-lp`` to list all available parameter (``-p`` keys and values)
-  * ``-rf csv`` to emit CSV output (for use in a spreadsheet etc)
+  * ``-rf csv`` to emit CSV output (for use with the ``plot`` command)
+  * ``-foe true`` to stop on any error (recommended)
 
 ## Naming Convention
 Algorithm names (such as ``xxh64-jpountz-unsafe``) are used in reports and
