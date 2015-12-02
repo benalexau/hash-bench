@@ -26,10 +26,9 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<!-- built from commit 657f63918426133a3d0997650ab81b8c6fba2dd4 -->
 			<groupId>net.openhft</groupId>
 			<artifactId>zero-allocation-hashing</artifactId>
-			<version>0.5.20150926</version>
+			<version>0.5</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.intellij</groupId>
