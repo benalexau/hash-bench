@@ -56,9 +56,9 @@ lowest latency hash for your target byte size, compare the different
 implementations of that hash, and evaluate how well an implementation responds
 to different input types (eg ``byte[]`` vs ``ByteBuffer``) and lengths.
 
-An example plot is below, but there are [many more](results/4/README.md):
+An example plot is below, but there are [many more](results/5/README.md):
 
-![Results](results/4/2048.png)
+![Results](results/5/2048.png)
 
 | Date       | Processor     | JVM              | Results Link             |
 | ---------- | ------------- | ---------------- | ------------------------ |
@@ -66,6 +66,7 @@ An example plot is below, but there are [many more](results/4/README.md):
 | 2015-09-26 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [2](results/2/README.md) |
 | 2015-09-30 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [3](results/3/README.md) |
 | 2015-10-01 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [4](results/4/README.md) |
+| 2015-10-04 | Xeon E5-2667  | OpenJDK 1.8.0_66 | [5](results/5/README.md) |
 
 ## Scope
 This project is focused on JVM performance.
