@@ -113,9 +113,6 @@ Until [xxHash for Java](https://github.com/jpountz/lz4-java) 1.4 is released,
 please clone and build it locally to access the latest buffer fixes. Then
 edit the ``hash-bench/pom.xml`` to reflect the locally-installed snapshot.
 
-Similarly locally build [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
-before 0.5 is released.
-
 Hash-Bench also requires [Jacksum](http://www.jonelo.de/java/jacksum/).
 Jacksum is not in any Maven repository, so download it, unzip, then
 
