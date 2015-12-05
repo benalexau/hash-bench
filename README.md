@@ -66,7 +66,7 @@ An example plot is below, but there are [many more](results/5/README.md):
 | 2015-09-26 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [2](results/2/README.md) |
 | 2015-09-30 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [3](results/3/README.md) |
 | 2015-10-01 | Xeon E5-2667  | OpenJDK 1.8.0_60 | [4](results/4/README.md) |
-| 2015-10-04 | Xeon E5-2667  | OpenJDK 1.8.0_66 | [5](results/5/README.md) |
+| 2015-12-04 | Xeon E5-2667  | OpenJDK 1.8.0_66 | [5](results/5/README.md) |
 
 ## Scope
 This project is focused on JVM performance.
