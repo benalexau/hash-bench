@@ -22,7 +22,7 @@ public class ZeroAllocHasher implements Hasher {
     hashers.put(ZeroAllocHasher.MURMUR_3,
             new ZeroAllocHasher(LongHashFunction.murmur_3()));
     hashers.put(ZeroAllocHasher.XXH64,
-            new ZeroAllocHasher(LongHashFunction.xx_r39()));
+            new ZeroAllocHasher(LongHashFunction.xx()));
   }
 
   private final LongHashFunction delegate;
