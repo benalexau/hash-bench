@@ -113,7 +113,6 @@ public class BouncyCastleHasher implements Hasher {
 
   @Override
   public long hash(final byte[] in, final int off, final int len) {
-    this.delegate.reset();
     this.delegate.update(in, off, len);
     this.delegate.doFinal(this.digest, 0);
     return Longs.fromByteArray(this.digest);
@@ -121,8 +120,6 @@ public class BouncyCastleHasher implements Hasher {
 
   @Override
   public long hash(final ByteBuffer bb, final int off, final int len) {
-    this.delegate.reset();
-
     if (bb.hasArray()) {
       this.delegate.update(bb.array(), off, len);
       this.delegate.doFinal(this.digest, 0);
