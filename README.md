@@ -40,6 +40,7 @@ hash, CRC and checksum algorithms. These include:
 
 Implementations tested:
 
+* [AlphaZero Blake2b](https://github.com/alphazero/Blake2b)
 * [Bouncy Castle](http://bouncycastle.org/java.html)
 * Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
 * Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
@@ -47,6 +48,7 @@ Implementations tested:
 * Johann Löfflmann [Jacksum](http://www.jonelo.de/java/jacksum/)
 * JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
 * JRE [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
+* [Kocakosm JBlake2](https://github.com/kocakosm/jblake2)
 * Adrien Grand (@jpountz) [xxHash for Java](https://github.com/jpountz/lz4-java)
 * OpenHFT [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
 

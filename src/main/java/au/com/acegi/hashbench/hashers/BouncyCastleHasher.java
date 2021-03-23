@@ -29,8 +29,8 @@ import org.bouncycastle.crypto.digests.WhirlpoolDigest;
 import com.google.common.primitives.Longs;
 
 public class BouncyCastleHasher implements Hasher {
-  public static final String BLAKE2B_256 = "blake2b-256";
-  public static final String BLAKE2S_256 = "blake2s-256";
+  public static final String BLAKE2B_256 = "blake2b-256-bc";
+  public static final String BLAKE2S_256 = "blake2s-256-bc";
   public static final String GOST = "gost-bc";
   public static final String MD2 = "md2-bc";
   public static final String MD4 = "md4-bc";
