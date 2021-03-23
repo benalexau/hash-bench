@@ -4,6 +4,7 @@ Hash-Bench provides a JMH (Java microbenchmark harness) and
 hash, CRC and checksum algorithms. These include:
 
 * [Adler32](https://en.wikipedia.org/wiki/Adler-32)
+* [BLAKE2](https://www.blake2.net/)
 * [BSD Checksum](https://en.wikipedia.org/wiki/BSD_checksum)
 * [CityHash](https://en.wikipedia.org/wiki/CityHash)
 * [cksum](https://en.wikipedia.org/wiki/Cksum)

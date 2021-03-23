@@ -65,6 +65,8 @@ public class HashBench {
 
   @Param({
           AdlerHasher.ADLER_32,
+          BouncyCastleHasher.BLAKE2B_256,
+          BouncyCastleHasher.BLAKE2S_256,
           BouncyCastleHasher.GOST,
           BouncyCastleHasher.MD2,
           BouncyCastleHasher.MD4,
