@@ -21,6 +21,7 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 import au.com.acegi.hashbench.hashers.AdlerHasher;
+import au.com.acegi.hashbench.hashers.AlphaZeroHasher;
 import au.com.acegi.hashbench.hashers.BouncyCastleHasher;
 import au.com.acegi.hashbench.hashers.CRC32Hasher;
 import au.com.acegi.hashbench.hashers.GuavaHasher;
@@ -28,6 +29,7 @@ import au.com.acegi.hashbench.hashers.Hasher;
 import au.com.acegi.hashbench.hashers.JacksumHasher;
 import au.com.acegi.hashbench.hashers.Jp32Hasher;
 import au.com.acegi.hashbench.hashers.Jp64Hasher;
+import au.com.acegi.hashbench.hashers.KocakosmHasher;
 import au.com.acegi.hashbench.hashers.SipFwdHasher;
 import au.com.acegi.hashbench.hashers.SipInlineHasher;
 import au.com.acegi.hashbench.hashers.ZeroAllocHasher;
@@ -47,12 +49,14 @@ public class HashBench {
   static {
     OFFSET = HashBench.RND.nextInt(32000);
     AdlerHasher.register(HashBench.HASHERS);
+    AlphaZeroHasher.register(HASHERS);
     BouncyCastleHasher.register(HashBench.HASHERS);
     CRC32Hasher.register(HashBench.HASHERS);
     GuavaHasher.register(HashBench.HASHERS);
     JacksumHasher.register(HashBench.HASHERS);
     Jp32Hasher.register(HashBench.HASHERS);
     Jp64Hasher.register(HashBench.HASHERS);
+    KocakosmHasher.register(HASHERS);
     SipFwdHasher.register(HashBench.HASHERS);
     SipInlineHasher.register(HashBench.HASHERS);
     ZeroAllocHasher.register(HashBench.HASHERS);
@@ -65,6 +69,9 @@ public class HashBench {
 
   @Param({
           AdlerHasher.ADLER_32,
+          AlphaZeroHasher.BLAKE2B_256,
+          BouncyCastleHasher.BLAKE2B_256,
+          BouncyCastleHasher.BLAKE2S_256,
           BouncyCastleHasher.GOST,
           BouncyCastleHasher.MD2,
           BouncyCastleHasher.MD4,
@@ -171,6 +178,7 @@ public class HashBench {
           Jp64Hasher.XXH64_JNI,
           Jp64Hasher.XXH64_SAFE,
           Jp64Hasher.XXH64_UNSAFE,
+          KocakosmHasher.BLAKE2B_256,
           SipFwdHasher.SIP,
           SipInlineHasher.SIP,
           ZeroAllocHasher.CITY_1_1,

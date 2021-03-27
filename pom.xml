@@ -56,6 +56,11 @@
 			<artifactId>bcprov-debug-jdk15on</artifactId>
 			<version>1.64</version>
 		</dependency>
+		<dependency>
+			<groupId>org.kocakosm</groupId>
+			<artifactId>jblake2</artifactId>
+			<version>0.4</version>
+		</dependency>
 	</dependencies>
 
 	<properties>

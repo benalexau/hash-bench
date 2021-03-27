@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.util.Map;
 
 import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.digests.Blake2bDigest;
+import org.bouncycastle.crypto.digests.Blake2sDigest;
 import org.bouncycastle.crypto.digests.GOST3411Digest;
 import org.bouncycastle.crypto.digests.MD2Digest;
 import org.bouncycastle.crypto.digests.MD4Digest;
@@ -27,6 +29,8 @@ import org.bouncycastle.crypto.digests.WhirlpoolDigest;
 import com.google.common.primitives.Longs;
 
 public class BouncyCastleHasher implements Hasher {
+  public static final String BLAKE2B_256 = "blake2b-256-bc";
+  public static final String BLAKE2S_256 = "blake2s-256-bc";
   public static final String GOST = "gost-bc";
   public static final String MD2 = "md2-bc";
   public static final String MD4 = "md4-bc";
@@ -50,6 +54,10 @@ public class BouncyCastleHasher implements Hasher {
   public static final String WHIRLPOOL2 = "whirlpool2-bc";
 
   public static final void register(final Map<String, Hasher> hashers) {
+    hashers.put(BouncyCastleHasher.BLAKE2B_256,
+            new BouncyCastleHasher(new Blake2bDigest(256)));
+    hashers.put(BouncyCastleHasher.BLAKE2S_256,
+            new BouncyCastleHasher(new Blake2sDigest(256)));
     hashers.put(BouncyCastleHasher.GOST,
             new BouncyCastleHasher(new GOST3411Digest()));
     hashers.put(BouncyCastleHasher.MD2,
@@ -105,7 +113,6 @@ public class BouncyCastleHasher implements Hasher {
 
   @Override
   public long hash(final byte[] in, final int off, final int len) {
-    this.delegate.reset();
     this.delegate.update(in, off, len);
     this.delegate.doFinal(this.digest, 0);
     return Longs.fromByteArray(this.digest);
@@ -113,8 +120,6 @@ public class BouncyCastleHasher implements Hasher {
 
   @Override
   public long hash(final ByteBuffer bb, final int off, final int len) {
-    this.delegate.reset();
-
     if (bb.hasArray()) {
       this.delegate.update(bb.array(), off, len);
       this.delegate.doFinal(this.digest, 0);

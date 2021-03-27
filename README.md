@@ -4,6 +4,7 @@ Hash-Bench provides a JMH (Java microbenchmark harness) and
 hash, CRC and checksum algorithms. These include:
 
 * [Adler32](https://en.wikipedia.org/wiki/Adler-32)
+* [BLAKE2](https://www.blake2.net/)
 * [BSD Checksum](https://en.wikipedia.org/wiki/BSD_checksum)
 * [CityHash](https://en.wikipedia.org/wiki/CityHash)
 * [cksum](https://en.wikipedia.org/wiki/Cksum)
@@ -39,6 +40,7 @@ hash, CRC and checksum algorithms. These include:
 
 Implementations tested:
 
+* [AlphaZero Blake2b](https://github.com/alphazero/Blake2b)
 * [Bouncy Castle](http://bouncycastle.org/java.html)
 * Forward Engineering [SipHash_2_4](http://www.forward.com.au/pfod/SipHashJavaLibrary/index.html)
 * Google [Guava](https://github.com/google/guava/wiki/HashingExplained)
@@ -46,6 +48,7 @@ Implementations tested:
 * Johann Löfflmann [Jacksum](http://www.jonelo.de/java/jacksum/)
 * JRE [Adler32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/Adler32.html)
 * JRE [CRC32](https://docs.oracle.com/javase/8/docs/api/java/util/zip/CRC32.html)
+* [Kocakosm JBlake2](https://github.com/kocakosm/jblake2)
 * Adrien Grand (@jpountz) [xxHash for Java](https://github.com/jpountz/lz4-java)
 * OpenHFT [Zero Allocation Hashing](https://github.com/OpenHFT/Zero-Allocation-Hashing)
 
@@ -160,7 +163,7 @@ GPLv2 licensed. Hash-Bench is not derived from Jacksum and is not
 including or redistributing any Jacksum files (you must manually download and
 install Jacksum yourself, as described above).
 
-Two hash implementations (SipHash_2_4, Siphash-java-inline) are not available
+Three hash implementations (SipHash_2_4, Siphash-java-inline, the OVE implementation of BLAKE2b) are not available
 from any known Maven repository. As each implementation is a single file, they
 have been placed in the ``thirdparty`` directory. Their licenses are shown
 in those files.
