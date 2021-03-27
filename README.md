@@ -163,7 +163,7 @@ GPLv2 licensed. Hash-Bench is not derived from Jacksum and is not
 including or redistributing any Jacksum files (you must manually download and
 install Jacksum yourself, as described above).
 
-Two hash implementations (SipHash_2_4, Siphash-java-inline) are not available
+Three hash implementations (SipHash_2_4, Siphash-java-inline, the OVE implementation of BLAKE2b) are not available
 from any known Maven repository. As each implementation is a single file, they
 have been placed in the ``thirdparty`` directory. Their licenses are shown
 in those files.
